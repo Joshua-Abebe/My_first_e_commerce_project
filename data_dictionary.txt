@@ -1,0 +1,41 @@
+Entity    |        Description        |          Attributes            |      Identifier
+
+
+Customer  | The entity who purchases  | id_customer, name, address,    | id_customer
+            products                    contact
+
+Order     | one purchase event by the | id_order, id_customer, id_cus- | id_order
+            the customer                tomer_address, purchase_date,
+                                        total price
+
+Courier   | The entity which delivers | id_courier, name               | id_courier
+            the orders
+
+Warehouse | A place where products a- | id_warehouse, name, location   | id_warehouse
+            re stored
+
+Product   | Items which are to be so- | id_product, name, made_in, pr- | id_product
+            ld                          ice
+
+Supplier  | An entity which supplies  | id_supplier, name, contact     | id_supplier
+            the products
+
+Customer  | Location of the customer  | id_customer_address, id_custo- | id_customer_address
+address     (delivery address for the   mer, street, zip, city, count-
+             product )                  ry
+
+Review    | A comment made by a cust- | id_review, id_product, id_cut- | id_review
+            omer                        omer, rating
+
+Payment   | Payment made by the cust- | id_payment, id_order, method,  | id_payment
+            omer for the order          status, amount, date
+
+Billing   | The address in which the  | id_billing_address, id_custom- | id_billing_address
+address     payment is made from        er, street, zip, city, country
+
+Category  | name of product categor- | id_category, name               | id_category
+            ies or classifications
+
+Shipment  | The process of the deli- | id_shipment, id_order, id_cour- | id_shipment
+            very of the product        ier, status, shipped_date, del- 
+                                       ivered_date, tracking_number
