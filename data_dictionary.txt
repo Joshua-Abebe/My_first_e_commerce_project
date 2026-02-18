@@ -1,8 +1,10 @@
+ENTITIES
+
 Entity    |        Description        |          Attributes            |      Identifier
 
 
-Customer  | The entity who purchases  | id_customer, name, address,    | id_customer
-            products                    contact
+Customer  | The entity who purchases  | id_customer, name, contact     | id_customer
+            products                    
 
 Order     | one purchase event by the | id_order, id_customer, id_cus- | id_order
             the customer                tomer_address, purchase_date,
@@ -25,7 +27,8 @@ address     (delivery address for the   mer, street, zip, city, count-
              product )                  ry
 
 Review    | A comment made by a cust- | id_review, id_product, id_cut- | id_review
-            omer                        omer, rating
+            omer                        omer, rating, comment, review_
+                                        date
 
 Payment   | Payment made by the cust- | id_payment, id_order, method,  | id_payment
             omer for the order          status, amount, date
@@ -39,3 +42,81 @@ Category  | name of product categor- | id_category, name               | id_cate
 Shipment  | The process of the deli- | id_shipment, id_order, id_cour- | id_shipment
             very of the product        ier, status, shipped_date, del- 
                                        ivered_date, tracking_number
+
+-----------------------------------------------------------------------------------------------
+RELATIONSHIPS
+
+Relationship  |         Description      |          Attributes         | Identifier 
+
+
+Product cate- | Connects products with   | id_product, id_category     | id_product, id_category
+gory specifi-   their category(classifc-
+cation          ation)
+
+Product supp- | Connects product with t- | id_product, id_supplier, s- | id_product, id_supplier
+ly chain        heir suppliers             ize
+
+Order Item    | Associates all the prod- | id_product, id_order, unit_ | id_product, id_order
+                ucts found in the order    price_at_purchase, discount,
+                                           quantity
+
+Inventory     | Associates all the prod- | id_product, id_warehouse,   | id_product, id_warehouse
+                ucts found in a warehouse  quantity
+
+-------------------------------------------------------------------------------------------------
+CARDINALITY
+
+Customer      -->     Order (1-N)
+Order         -->     Order_item (1-N)
+Order_item    -->     Product (N-1)
+Product       -->     Category (N-N)
+Product       -->     Supplier (N-N)
+Product       -->     Warehouse (N-N)
+Customer      -->     Billing_address (1-N)
+Customer      -->     Customer_address (1-N)
+Customer      -->     Review (1-N)
+Product       -->     Review (1-N)
+Courier       -->     Shipment (1-N)
+Order         -->     Shipment (1-1)
+Order         -->     Payment (1-1)
+
+
+-------------------------------------------------------------------------------------------------
+BUSINESS RULES(BR) AND CONSTRAINTS
+
+1. Customer Management
+
+BR1 - Orders:                A single customer may place multiple orders.
+BR2 - Contact Information:   Each customer is restricted to one primary contact phone number.
+BR3 - Addresses:             A customer may maintain multiple shipping addresses and multiple billing addresses.
+BR4 - Reviews:               A customer may submit atmost one review per product.
+
+2. Order Management
+
+BR5 - Contents:             An order may contain multiple products (managed via an Order Item relationship).
+BR6 - Shipping:             Each order is associated with exactly one shipping address.
+BR7 - Payment:              Each order is associated with exactly one payment transaction.
+BR8 - Fulfillment:          Each order is fulfilled via exactly one shipment.
+
+3. Product & Inventory
+
+BR9 - Sourcing:             A product may be supplied by multiple suppliers.
+BR10 - Categorization:       A product may belong to multiple product categories.
+BR11 - Storage:              A product may be stocked in multiple warehouses.
+
+4. Logistics & Fulfillment
+
+BR12 - Shipments:           A shipment is linked to exactly one order and assigned to exactly one courier.
+BR13 - Couriers:            A courier may be assigned multiple shipments.
+
+5. Financials
+
+BR14 - Payments:            A payment transaction is valid for exactly one order.
+BR15 - Billing:             A single billing address may be used for multiple payment transactions.
+
+
+DERIVATIONS
+6. System Calculations
+BR16 - Order Total:         The Total Price of an order is not a static value; it is dynamically calculated by summing the prices of all individual products within the Order Item relationship table.
+
+
