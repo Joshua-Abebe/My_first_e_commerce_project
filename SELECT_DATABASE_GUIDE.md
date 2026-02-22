@@ -87,3 +87,5 @@ SELECT * FROM database_name.schema_name.table_name;
    - SQL Server: `SELECT DB_NAME();`
 3. **In connection settings**: Always specify the database name when configuring connections in IDE extensions
 
+
+

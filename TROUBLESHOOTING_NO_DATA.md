@@ -136,3 +136,5 @@ Expected result: `total_rows = 5`
 4. **Check user permissions**: Ensure your MySQL user has CREATE, INSERT, SELECT permissions
 5. **Look for error messages** in your SQL client's output panel
 
+
+
