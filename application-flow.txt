@@ -1,1 +1,49 @@
-application-flow.txt
+Important Notes (Read Carefully, on register.php)
+
+1. Passwords are currently stored as plain text.
+This is NOT secure.
+For academic simplicity, it may pass.
+In real systems you would use:
+
+PHP:
+$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+and verify using password_verify().
+
+2. We immediately create a CART order.
+That keeps your system clean:
+
+Every logged-in user always has one active CART.
+
+You never need to check “does cart exist?” everywhere.
+
+
+
+3. We used mysqli_insert_id() correctly to get:
+
+newly created customer id
+
+newly created cart order id
+
+This is clean implementation.
+
+
+-------------------------------------------------------------------------------------------------------------
+
+We will design add_to_cart.php properly, not just “insert blindly”.(add_to_cart.php)
+
+Your system design assumptions:
+
+Each logged user always has one active CART order.
+
+$_SESSION['active_order_id'] stores that cart.
+
+Order status = 'CART'
+
+We store unit_price_at_purchase during CART phase as current price (dynamic policy).
+
+If product already exists in cart → increase quantity.
+
+If not → insert new row.
+
+That’s the correct logic.
