@@ -8,7 +8,7 @@ Customer  | The entity who purchases  | id_customer, name, contact     | id_cust
 
 Order     | one purchase event by the | id_order, id_customer, id_cus- | id_order
             the customer                tomer_address, purchase_date,
-                                        total price
+                                        total price, status
 
 Courier   | The entity which delivers | id_courier, name               | id_courier
             the orders
@@ -86,37 +86,39 @@ BUSINESS RULES(BR) AND CONSTRAINTS
 
 1. Customer Management
 
-BR1 - Orders:                A single customer may place multiple orders.
-BR2 - Contact Information:   Each customer is restricted to one primary contact phone number.
-BR3 - Addresses:             A customer may maintain multiple shipping addresses and multiple billing addresses.
-BR4 - Reviews:               A customer may submit atmost one review per product.
+BR1 - Orders:                     A single customer may place multiple orders.
+BR2 - Contact Information:        Each customer is restricted to one primary contact phone number.
+BR3 - Addresses:                  A customer may maintain multiple shipping addresses and multiple billing addresses.
+BR4 - Reviews:                    A customer may submit atmost one review per product.
 
 2. Order Management
 
-BR5 - Contents:             An order may contain multiple products (managed via an Order Item relationship).
-BR6 - Shipping:             Each order is associated with exactly one shipping address.
-BR7 - Payment:              Each order is associated with exactly one payment transaction.
-BR8 - Fulfillment:          Each order is fulfilled via exactly one shipment.
+BR5 - Contents:                  An order may contain multiple products (managed via an Order Item relationship).
+BR6 - Shipping:                  Each order is associated with exactly one shipping address.
+BR7 - Payment:                   Each order is associated with exactly one payment transaction.
+BR8 - Fulfillment:               Each order is fulfilled via exactly one shipment.
+BR9 - Order status:              An order must always have a valid status. The system forces state transition from CART -> PLACED -> SHIPPED-> DELIVERED OR CANCELLED.
+BR10 - Active cart constraint:   A customer may have at most one order with status = 'CART' at any given time;
 
 3. Product & Inventory
 
-BR9 - Sourcing:             A product may be supplied by multiple suppliers.
-BR10 - Categorization:       A product may belong to multiple product categories.
-BR11 - Storage:              A product may be stocked in multiple warehouses.
+BR11 - Sourcing:                 A product may be supplied by multiple suppliers.
+BR12 - Categorization:           A product may belong to multiple product categories.
+BR13 - Storage:                  A product may be stocked in multiple warehouses.
 
 4. Logistics & Fulfillment
 
-BR12 - Shipments:           A shipment is linked to exactly one order and assigned to exactly one courier.
-BR13 - Couriers:            A courier may be assigned multiple shipments.
+BR14 - Shipments:                A shipment is linked to exactly one order and assigned to exactly one courier.
+BR15 - Couriers:                 A courier may be assigned multiple shipments.
 
 5. Financials
 
-BR14 - Payments:            A payment transaction is valid for exactly one order.
-BR15 - Billing:             A single billing address may be used for multiple payment transactions.
+BR16 - Payments:                 A payment transaction is valid for exactly one order.
+BR17 - Billing:                  A single billing address may be used for multiple payment transactions.
 
 
 DERIVATIONS
 6. System Calculations
-BR16 - Order Total:         The Total Price of an order is not a static value; it is dynamically calculated by summing the prices of all individual products within the Order Item relationship table.
+BR18 - Order Total:              The Total Price of an order is not a static value; it is dynamically calculated by summing the prices of all individual products within the Order Item relationship table.
 
 
