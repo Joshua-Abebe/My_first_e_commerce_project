@@ -47,3 +47,55 @@ If product already exists in cart → increase quantity.
 If not → insert new row.
 
 That’s the correct logic.
+
+------------------------------------------------
+
+My_first_e_commerce_project/
+│
+├── index.php
+├── register.php
+├── login.php
+├── logout.php
+├── products.php
+├── cart.php
+├── checkout.php
+├── place_order.php
+├── review.php
+│
+├── config/
+│     └── db_connect.php
+│
+├── includes/
+│     ├── header.php
+│     ├── footer.php
+│     └── auth_check.php
+│
+└── assets/
+
+
+
+Page	                           Responsibility
+- products.php	                 - Display products
+- add_to_cart.php	             - Modify database (cart logic)
+- cart.php	                     - Display current cart
+- checkout.php	                 - Show order summary
+- place_order.php	             - Finalize transaction
+
+
+UI pages
+---------
+products.php
+cart.php
+checkout.php
+
+Action pages
+------------
+add_to_cart.php
+place_order.php
+review.php
+
+Infrastructure
+--------------
+config/db_connect.php
+includes/auth_check.php
+includes/header.php
